@@ -90,9 +90,11 @@ try:
                 os.system('cls')
                 print("\tOperadora\t\tPagamento em Dinheiro\t\t    Sagria Dinheiro\t\t Diferença Dinheiro\t\tPagamento com Cartões\t\t   Sangria Cartões\t   Diferença Cartões")
                 print("-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
-
+                
+                # O loop é utilizado para percorrer o arrey nos selects
                 while limite < quantidade:
-
+                        
+                        #Traz no nome dos operadores e o ID
                         def operadores():
                                     comando = f"SELECT RPAD(u.nome, 26, ' '),p.cod_usuario ID_Operadora FROM T_PDV p JOIN usuario u ON p.cod_usuario = u.id AND p.valorVendido > '0' WHERE datafiscal = '{movimento}' and p.nestab = '{loja}' and p.npdv = '{pdv}'"
 
@@ -103,7 +105,7 @@ try:
                                     return resultado
 
 
-
+                        #Traz os valores dos pagamentos em dinheiro com base no id do operado, Data, Loja e PDV
                         def pagamentodinheiro():
 
                                     comando = f"SELECT SUM(round (valor,2))  FROM T_VendaPagto vp JOIN T_Venda v ON vp.cod_venda = v.cod_venda JOIN T_PDV pdv ON pdv.ID = v.IDPDV and pdv.nestab = v.nestab and pdv.npdv = v.npdv and pdv.datafiscal = v.datafiscal JOIN usuario u ON pdv.cod_usuario = u.id WHERE vp.idtipopagto IN ('1','0') AND vp.subtipotrans = 'E' AND v.vendaEncerrada = 'S' AND  vp.datafiscal = '{movimento}' AND cod_usuario = '{operadores()[limite][1]}' and vp.nestab  = '{loja}' and vp.npdv = '{pdv}';"
@@ -113,7 +115,7 @@ try:
                                     resultado = cursor.fetchall()  # ler o banco de dados
 
                                     return resultado
-
+                        #Traz os valores das Sangrias em dinheiro com base no id do operado, Data, Loja e PDV
                         def sangriadinheiro():
 
                                     comando = f"SELECT  SUM(round (valor,2))  FROM T_VendaPagto vp JOIN T_Venda v ON vp.cod_venda = v.cod_venda JOIN T_PDV pdv ON pdv.ID = v.IDPDV and pdv.nestab = v.nestab and pdv.npdv = v.npdv and pdv.datafiscal = v.datafiscal JOIN usuario u ON pdv.cod_usuario = u.id WHERE vp.idtipopagto IN ('1') AND vp.subtipotrans = 'S' AND v.vendaEncerrada = 'S' and vp.datafiscal = '{movimento}' AND cod_usuario = '{operadores()[limite][1]}' and vp.nestab  = '{loja}' and vp.npdv = '{pdv}';"
@@ -123,7 +125,7 @@ try:
                                     resultado = cursor.fetchall()  # ler o banco de dados
 
                                     return resultado
-
+                        #Traz os valores dos pagamentos em Cartões com base no id do operado, Data, Loja e PDV
                         def pagamentocartao():
 
                                     comando = f"SELECT SUM(round (valor,2))  FROM T_VendaPagto vp JOIN T_Venda v ON vp.cod_venda = v.cod_venda JOIN T_PDV pdv ON pdv.ID = v.IDPDV and pdv.nestab = v.nestab and pdv.npdv = v.npdv and pdv.datafiscal = v.datafiscal JOIN usuario u ON pdv.cod_usuario = u.id WHERE vp.idtipopagto IN ('4','5','7','10','13','21') AND vp.subtipotrans = 'E' AND v.vendaEncerrada = 'S'AND  vp.datafiscal = '{movimento}' AND cod_usuario = '{operadores()[limite][1]}' and vp.nestab  = '{loja}' and vp.npdv = '{pdv}';"
@@ -134,7 +136,7 @@ try:
 
                                     return resultado
 
-
+                        #Traz os valores das sangrias dos pagamentos em Cartões com base no id do operado, Data, Loja e PDV
                         def sangriacartao():
 
                             comando = f"SELECT  SUM(round (valor,2))  FROM T_VendaPagto vp JOIN T_Venda v ON vp.cod_venda = v.cod_venda JOIN T_PDV pdv ON pdv.ID = v.IDPDV and pdv.nestab = v.nestab and pdv.npdv = v.npdv and pdv.datafiscal = v.datafiscal JOIN usuario u ON pdv.cod_usuario = u.id WHERE vp.idtipopagto IN ('4','5','7','10','13','21') AND vp.subtipotrans = 'S' AND v.vendaEncerrada = 'S' and vp.datafiscal = '{movimento}' AND cod_usuario = '{operadores()[limite][1]}' and vp.nestab  = '{loja}' and vp.npdv = '{pdv}';"
@@ -144,7 +146,7 @@ try:
                             resultado = cursor.fetchall()  # ler o banco de dados
 
                             return resultado
-
+                        
                         operador = operadores()[limite][0]
                         pdinheiro = pagamentodinheiro()[0][0]
                         sdinheiro = sangriadinheiro()[0][0]
