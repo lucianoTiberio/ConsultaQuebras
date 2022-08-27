@@ -3,16 +3,23 @@ import os
 import getpass
 from datetime import datetime
 
-
+#Define o tamanho que ira abrir o prompt
 os.system('mode 210,25')
+#Define a cor da letra como verde no prompt
 os.system("color a")
+#Pega o nome do usuario do desktop
 usuario = getpass.getuser()
+#pega a data que o programa esta sendo executado
 data = datetime.now().strftime('%Y-%m-%d')
+
 print(data,'\n')
 print('Ola ',usuario, ' Vamos começar')
-try:
 
+try:
+    
+    #A Função Con é a principal onde existem as sub funções, foi criada para que o programa possa ser reiniciado de qualquer outra função.
     def con():
+        
         loja = input("\nQual o numero da Loja? - Como exemplo loja: 12\n\n")
         os.system('cls')
         pdv = input("\nQual o numero do PDV? - Como exemplo PDV: 003 \n\n")
