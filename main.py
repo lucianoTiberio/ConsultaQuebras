@@ -5,10 +5,13 @@ from datetime import datetime
 
 #Define o tamanho que ira abrir o prompt
 os.system('mode 210,25')
+
 #Define a cor da letra como verde no prompt
 os.system("color a")
+
 #Pega o nome do usuario do desktop
 usuario = getpass.getuser()
+
 #pega a data que o programa esta sendo executado
 data = datetime.now().strftime('%Y-%m-%d')
 
@@ -33,7 +36,9 @@ try:
         cursor = conexao.cursor()
 
         cursor = conexao.cursor()
+        
         #------------------------------------------------------------------------------------------------------
+        
         #A Função menu é chama após trazer as informações das quebras-----------------------------------------
         def menu():
 
@@ -49,9 +54,12 @@ try:
             else:
                  print('opcao invalida\n')
                  menu()
+                
         #--------------------------------------------------------------------------------------------------------
+        
         def sistema():
-
+            
+            #Verifica se existe algum registro para as informações passadas -------------------------------------
             def contador():
 
                 comando = f"SELECT COUNT(p.cod_usuario) FROM T_PDV p JOIN usuario u ON p.cod_usuario = u.id AND p.valorVendido > '0' WHERE datafiscal = '{movimento}' and p.nestab = '{loja}' and p.npdv = '{pdv}'"
@@ -61,14 +69,16 @@ try:
                 resultado = cursor.fetchall()  # ler o banco de dados
 
                 return resultado
-
+                     
             quantidade = int(contador()[0][0])
             limite = 0
-
+        
             if quantidade == 0:
                     os.system('cls')
                     print('\n\nNão existem registros o PDV informado\nValidade os dados\n\n')
                     menu()
+            #-------------------------------------------------------------------------------------------------------
+            
             else:
                 os.system('cls')
                 print("\tOperadora\t\tPagamento em Dinheiro\t\t    Sagria Dinheiro\t\t Diferença Dinheiro\t\tPagamento com Cartões\t\t   Sangria Cartões\t   Diferença Cartões")
