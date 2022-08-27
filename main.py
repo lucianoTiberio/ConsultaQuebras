@@ -36,7 +36,9 @@ try:
         print('\n\nBuscando informações .......\n\n')
         
         #------------------------------------------------------------------------------------------------------
+        
         #Conexão com banco postgresql
+        
         conexao = psycopg2.connect(host='', database='', user='', password='')
         cursor = conexao.cursor()
 
