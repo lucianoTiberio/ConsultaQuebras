@@ -22,14 +22,19 @@ try:
     
     #A Função Con é a principal onde existem as sub funções, foi criada para que o programa possa ser reiniciado de qualquer outra função.
     def con():
+        
         #As informações serão utilizadas no where do select -------------------------------------------------
         loja = input("\nQual o numero da Loja? - Como exemplo loja: 12\n\n")
         os.system('cls')
+        
         pdv = input("\nQual o numero do PDV? - Como exemplo PDV: 003 \n\n")
         os.system('cls')
+        
         movimento = input("\nQual o Movimento da Quebra? - Usando o padrão ANO-MES-DIA\n\n")
         os.system('cls')
+        
         print('\n\nBuscando informações .......\n\n')
+        
         #------------------------------------------------------------------------------------------------------
         #Conexão com banco postgresql
         conexao = psycopg2.connect(host='', database='', user='', password='')
